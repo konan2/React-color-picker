@@ -9,7 +9,7 @@ function DropDown(props) {
         if(props.onClose){
             props.onClose()
         }
-    }, [props])
+    })
 
     const toggle = useCallback((event) => {
         arrowXpos.current = event.target.offsetLeft + (event.target.offsetWidth / 2)
@@ -24,7 +24,7 @@ function DropDown(props) {
         return () => {
             window.removeEventListener('click', close)
         }
-      }, [toggle, close, isListOpen])
+      }, [toggle])
 
 
       
