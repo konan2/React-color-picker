@@ -2,23 +2,16 @@ import './App.css';
 import React ,{useState} from "react"
 import ColorPicker from "./components/ColorPicker/ColorPicker"
 import {colorsArr} from "./data"
+import {hexToRgb} from "./utilities/hexToRgb"
+
 
 function App() {
-    const [data, setColor] = useState({
-        currentColor: colorsArr[0].code
-      });
-
-    const handleChange = value => {
-        setColor({
-            ...data,
-            currentColor: value
-          });
-    };
-
+    const [currentColor, setCurrentColor] = useState(hexToRgb(colorsArr[0].code));
+    console.log(currentColor)
     return (
         <ColorPicker 
-            value={data.currentColor} 
-            onChange={handleChange} 
+            value={currentColor} 
+            onChange={setCurrentColor} 
             colors={colorsArr} 
         />
     )
