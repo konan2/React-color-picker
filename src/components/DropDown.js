@@ -4,27 +4,31 @@ function DropDown(props) {
     const [isListOpen, setListOpen] = useState(false); 
     const arrowXpos = useRef()
 
-    const close = useCallback(() => {
+    const cancel = useCallback(() =>  {   // close and set previous value in onClose func
         setListOpen(false)
         if(props.onClose){
-            props.onClose()
+            props.onClose()   
         }
-    }, [props])
+    }, [isListOpen])
 
-    const toggle = useCallback((event) => {
+
+    
+
+    const toggle = useCallback((event) => {  
         arrowXpos.current = event.target.offsetLeft + (event.target.offsetWidth / 2)
         setListOpen(!isListOpen)
     }, [isListOpen])
+
 
     useEffect(() => {
         if(!isListOpen){
             return
         }
-        window.addEventListener('click', close)
+        window.addEventListener('click', cancel)
         return () => {
-            window.removeEventListener('click', close)
+            window.removeEventListener('click', cancel)
         }
-      }, [toggle, close, isListOpen])
+      }, [toggle])
 
 
       
@@ -44,7 +48,7 @@ function DropDown(props) {
 
                         {props.controls &&
                             <div className="drop-down-controls">
-                                <button className={'btn'} onClick={close}>CANCEL</button>
+                                <button className={'btn'} onClick={cancel}>CANCEL</button>
                                 <button className={'btn primary-btn'} onClick={toggle}>OK</button>
                             </div>   
                         }

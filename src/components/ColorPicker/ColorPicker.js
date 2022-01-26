@@ -1,12 +1,14 @@
 import React from 'react';
-import DropDown from "./../DropDown"
-import Menu from "./../Menu"
+import DropDown from "../DropDown"
+import Menu from "../Menu"
 import Configurator from "./Configurator"
+import {rgbToHex} from "../../utilities/rgbToHex"
 
-function Component(props) {
+function ColorPicker(props) {
+    const hexColor = rgbToHex(props.value[0], props.value[1], props.value[2])
     return (
         <color-picker>
-            <output>{props.value}</output>
+            <output>{hexColor}</output>
             <span className="divider"></span>
             <DropDown
                 onClose={() => props.onChange(props.value)} 
@@ -14,15 +16,15 @@ function Component(props) {
                 content={
                     <Configurator 
                         onChange={props.onChange} 
-                        color={props.value} 
+                        value={props.value} 
             />}>
-                <span className="color-preview" style={{background: props.value}}></span>
+                <span className="color-preview" style={{background: hexColor}}></span>
             </DropDown>
             <span className="divider"></span>
             <DropDown 
                 content={<Menu onChange={props.onChange}
                 data={props.colors}
-                color={props.value}  
+                value={hexColor}  
             />}>
                 <span className="arrow-down"></span>
             </DropDown>
@@ -30,6 +32,6 @@ function Component(props) {
     )
 }
 
-export default Component
+export default ColorPicker
 
 
