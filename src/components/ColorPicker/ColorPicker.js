@@ -1,9 +1,9 @@
 import React from 'react';
-import DropDown from "./../DropDown"
-import Menu from "./../Menu"
+import DropDown from "../DropDown"
+import Menu from "../Menu"
 import Configurator from "./Configurator"
 
-function Component(props) {
+function ColorPicker(props) {
     return (
         <color-picker>
             <output>{props.value}</output>
@@ -30,6 +30,6 @@ function Component(props) {
     )
 }
 
-export default Component
+export default ColorPicker
 
 
