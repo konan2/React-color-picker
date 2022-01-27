@@ -1,5 +1,4 @@
 import React from "react"
-import {rgbToHex} from "../../utilities/rgbToHex"
 
 function ColorConfigurator(props){
 
