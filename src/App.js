@@ -6,8 +6,10 @@ import {hexToRgb} from "./utilities/hexToRgb"
 
 
 function App() {
-    const [currentColor, setCurrentColor] = useState(hexToRgb(colorsArr[0].code));
-    console.log(currentColor)
+    const [currentColor, setCurrentColor] = useState(
+        hexToRgb(colorsArr[0].code)
+    )   
+    
     return (
         <ColorPicker 
             value={currentColor} 

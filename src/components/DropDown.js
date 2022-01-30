@@ -1,27 +1,31 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 function DropDown(props) {
-    const [isListOpen, setListOpen] = useState(false); 
+    const [isOpen, setOpen] = useState(false); 
     const arrowXpos = useRef()
 
-    const cancel = useCallback(() =>  {   // close and set previous value in onClose func
-        setListOpen(false)
+    const cancel = () =>  {   // close and set previous value in onClose func
+        setOpen(false)
         if(props.onClose){
             props.onClose()   
         }
-    }, [isListOpen])
+    }
 
 
-    
+    const apply = ()=>{
+        setOpen(false)
+        props.onApply()
+    }
+
 
     const toggle = useCallback((event) => {  
         arrowXpos.current = event.target.offsetLeft + (event.target.offsetWidth / 2)
-        setListOpen(!isListOpen)
-    }, [isListOpen])
+        setOpen(!isOpen)
+    }, [isOpen])
 
 
     useEffect(() => {
-        if(!isListOpen){
+        if(!isOpen){
             return
         }
         window.addEventListener('click', cancel)
@@ -39,7 +43,7 @@ function DropDown(props) {
                 {props.children}
             </button>
            
-            {isListOpen &&
+            {isOpen &&
                 <div className={'drop-down-container'}>
                     <div className="drop-down-content-arrow" style={{left: arrowXpos.current}}></div>
                     <div className={'drop-down-content'} onClick={props.controls ? (e) => e.stopPropagation() : undefined }>
@@ -49,7 +53,7 @@ function DropDown(props) {
                         {props.controls &&
                             <div className="drop-down-controls">
                                 <button className={'btn'} onClick={cancel}>CANCEL</button>
-                                <button className={'btn primary-btn'} onClick={toggle}>OK</button>
+                                <button className={'btn primary-btn'} onClick={apply}>OK</button>
                             </div>   
                         }
                     </div>

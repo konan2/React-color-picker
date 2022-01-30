@@ -4,5 +4,12 @@ export const hexToRgb = (hex) => {
     ,(m, r, g, b) => '#' + r + r + g + g + b + b)
     .substring(1).match(/.{2}/g)
     .map(x => parseInt(x, 16))
-    return rgb
+
+    let obj = {
+        red: rgb[0],
+        green: rgb[1],
+        blue: rgb[2],
+    }
+
+    return obj
 }
