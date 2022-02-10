@@ -4,7 +4,7 @@ function DropDown(props) {
     const [isOpen, setOpen] = useState(false); 
     const arrowXpos = useRef()
 
-    const cancel = () =>  {   // close and set previous value in onClose func
+    const cancel = () =>  {  
         setOpen(false)
         if(props.onClose){
             props.onClose()   

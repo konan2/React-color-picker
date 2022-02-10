@@ -3,19 +3,21 @@ import React ,{useState} from "react"
 import ColorPicker from "./components/ColorPicker/ColorPicker"
 import {colorsArr} from "./data"
 import {hexToRgb} from "./utilities/hexToRgb"
+import {rgbToHex} from "./utilities/rgbToHex"
 
 
 function App() {
-    const [currentColor, setCurrentColor] = useState(
-        hexToRgb(colorsArr[0].code)
-    )   
+    const [value, setValue] = useState(hexToRgb(colorsArr[0].code))   
     
     return (
-        <ColorPicker 
-            value={currentColor} 
-            onChange={setCurrentColor} 
-            colors={colorsArr} 
-        />
+        <div>
+            <ColorPicker 
+                value={value} 
+                onChange={setValue} 
+                colors={colorsArr} 
+            />
+           <output>{rgbToHex(value.red, value.green, value.blue)}</output>
+        </div>
     )
 }
 

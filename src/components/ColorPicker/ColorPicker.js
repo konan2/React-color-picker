@@ -1,37 +1,40 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import DropDown from "../DropDown"
 import Menu from "../Menu"
 import Configurator from "./Configurator"
 import {rgbToHex} from "../../utilities/rgbToHex"
 
 function ColorPicker(props) {
+    const [currentColor, setCurrentColor] = useState(props.value) 
     let prevColor = useRef(props.value)
-    const hexColor = rgbToHex(props.value.red, props.value.green, props.value.blue)
 
-    let apply = () =>  {
-        prevColor.current = props.value
+    let setValue = (color) =>  {
+        setCurrentColor(color)
+        prevColor.current = color;
+        props.onChange(color)
     }
+   
 
     return (
         <color-picker>
-            <output>{hexColor}</output>
+            <output>{rgbToHex(currentColor.red, currentColor.green, currentColor.blue)}</output> 
             <span className="divider"></span>
             <DropDown
-                onClose={()=> {props.onChange(prevColor.current)}}
-                onApply={apply}
+                onClose={()=> {setCurrentColor(prevColor.current)}}
+                onApply={()=> {setValue(currentColor)}}
                 controls={true}
                 content={
                     <Configurator 
-                        onChange={props.onChange} 
-                        value={props.value} 
+                        onChange={setCurrentColor} 
+                        value={currentColor} 
             />}>
-                <span className="color-preview" style={{background: hexColor}}></span>
+                <span className="color-preview" style={{background: rgbToHex(currentColor.red, currentColor.green, currentColor.blue)}}></span>
             </DropDown>
             <span className="divider"></span>
             <DropDown 
-                content={<Menu onChange={props.onChange}
+                content={<Menu onChange={setValue}
                 data={props.colors} 
-                value={hexColor}
+                value={rgbToHex(currentColor.red, currentColor.green, currentColor.blue)}
             />}>
                 <span className="arrow-down"></span>
             </DropDown>
