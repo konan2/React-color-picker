@@ -18,10 +18,12 @@ function DropDown(props) {
     }
 
 
-    const toggle = useCallback((event) => {  
+    const toggle = (event) => { 
         arrowXpos.current = event.target.offsetLeft + (event.target.offsetWidth / 2)
         setOpen(!isOpen)
-    }, [isOpen])
+     }
+
+
 
 
     useEffect(() => {

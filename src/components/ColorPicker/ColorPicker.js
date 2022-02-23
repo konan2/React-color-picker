@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import DropDown from "../DropDown"
 import Menu from "../Menu"
 import Configurator from "./Configurator"
@@ -6,13 +6,15 @@ import {rgbToHex} from "../../utilities/rgbToHex"
 
 function ColorPicker(props) {
     const [currentColor, setCurrentColor] = useState(props.value) 
-    let prevColor = useRef(props.value)
+    //let prevColor = useRef(props.value)
 
     let setValue = (color) =>  {
-        setCurrentColor(color)
-        prevColor.current = color;
+        //setCurrentColor(color)
+        //prevColor.current = color;
         props.onChange(color)
     }
+
+    useEffect(() => {setCurrentColor(props.value)}, [props.value])
    
 
     return (
@@ -20,7 +22,7 @@ function ColorPicker(props) {
             <output>{rgbToHex(currentColor.red, currentColor.green, currentColor.blue)}</output> 
             <span className="divider"></span>
             <DropDown
-                onClose={()=> {setCurrentColor(prevColor.current)}}
+                onClose={()=> {setCurrentColor(props.value)}}
                 onApply={()=> {setValue(currentColor)}}
                 controls={true}
                 content={
